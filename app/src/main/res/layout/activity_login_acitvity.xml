@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gkart"
+    android:background="@drawable/orange_page"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".LoginAcitvity">
+    tools:context=".LoginActivity">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:text="Login"
                 android:textAlignment="center"
-                android:textColor="@color/green1"
+                android:textColor="@color/orange"
                 android:textSize="36sp"
                 android:textStyle="bold"  />
 
@@ -72,7 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="30dp"
-                android:backgroundTint="@color/green1"
+                android:backgroundTint="@color/orange"
                 android:text="Login"
                 android:textSize="18sp"
                 app:cornerRadius="30dp" />
