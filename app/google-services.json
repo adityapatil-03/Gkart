@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1072868070494",
+    "project_id": "gkart-1c372",
+    "storage_bucket": "gkart-1c372.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1072868070494:android:8f2dbd42bc17ca6f8d50cf",
+        "android_client_info": {
+          "package_name": "com.example.gkart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1072868070494-gadr5ifbkih0v0p37n4lk7a9pdonla9a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.gkart",
+            "certificate_hash": "e497c2ce7f4ce1bf84101b1813d835550e308c89"
+          }
+        },
+        {
+          "client_id": "1072868070494-c1n75edaobq1ee6ul49kb99lm7naabc5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDljMEvNyO9KfrdQeU9jH3JAuDFbRf7VTc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1072868070494-c1n75edaobq1ee6ul49kb99lm7naabc5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
