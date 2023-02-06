@@ -3,6 +3,7 @@ package com.example.gkart;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,25 +31,41 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.password);
         loginbutton = findViewById(R.id.loginbutton);
         authenticator = FirebaseAuth.getInstance();
-        loginbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String email = username.getText().toString();
-                String pass = password.getText().toString();
-                if (email.length()>0&&pass.length()>0){
-                    loginUser(email,pass);
-                }
-                else{
-                    Toast.makeText(LoginActivity.this,"OOOps!! Empty credentials..",Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+
     }
-    public void loginUser(String name,String pass){
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(authenticator.getCurrentUser()==null){
+            loginbutton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String email = username.getText().toString();
+                    String pass = password.getText().toString();
+                    if (email.length()>0&&pass.length()>0){
+                        loginUser(email,pass);
+                    }
+                    else{
+                        Toast.makeText(LoginActivity.this,"OOOps!! Empty credentials..",Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+
+        }
+        else{
+            //            start home page intent
+            Toast.makeText(LoginActivity.this,"you are already logged in",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void loginUser(String name, String pass){
         authenticator.signInWithEmailAndPassword(name,pass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
                 Toast.makeText(LoginActivity.this,"Hurrrayy! Login was successful",Toast.LENGTH_SHORT).show();
+                dataSaver(name);
 //                start new intent here
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -57,5 +74,11 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this,"OOOps! Login failed",Toast.LENGTH_SHORT).show();
             }
         });
+    }
+    public void dataSaver(String s){
+        SharedPreferences saver = getSharedPreferences("userdetails",MODE_PRIVATE);
+        SharedPreferences.Editor editor = saver.edit();
+        editor.putString("emailid",s);
+        editor.apply();
     }
 }
