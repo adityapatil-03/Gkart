@@ -3,6 +3,7 @@ package com.example.gkart;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -57,6 +58,7 @@ public class LoginActivity extends AppCompatActivity {
         else{
             //            start home page intent
             Toast.makeText(LoginActivity.this,"you are already logged in",Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(LoginActivity.this,navigation_activity.class));
         }
     }
 
@@ -66,6 +68,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onSuccess(AuthResult authResult) {
                 Toast.makeText(LoginActivity.this,"Hurrrayy! Login was successful",Toast.LENGTH_SHORT).show();
                 dataSaver(name);
+                startActivity(new Intent(LoginActivity.this,navigation_activity.class));
 //                start new intent here
             }
         }).addOnFailureListener(new OnFailureListener() {
