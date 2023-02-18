@@ -3,8 +3,12 @@ package com.example.gkart;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +26,14 @@ public class LoginActivity extends AppCompatActivity {
     private EditText password;
     private Button loginbutton;
     private FirebaseAuth authenticator;
+    ProgressDialog progressDialog;
+    ConnectivityManager connectivityManager;
+
+//    ConnectivityManager cm = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+//    NetworkInfo nInfo = cm.getActiveNetworkInfo();
+//    boolean connected = nInfo != null && nInfo.isAvailable() && nInfo.isConnected();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,16 +44,23 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.password);
         loginbutton = findViewById(R.id.loginbutton);
         authenticator = FirebaseAuth.getInstance();
+        progressDialog  = new ProgressDialog(this);
+        connectivityManager = (ConnectivityManager)getApplicationContext().getSystemService(CONNECTIVITY_SERVICE);
+
 
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        if(authenticator.getCurrentUser()==null){
+
+        if(authenticator.getCurrentUser()==null ){
+            noInternet();
             loginbutton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    progressDialog.setMessage("Initial checks...");
+                    progressDialog.show();
                     String email = username.getText().toString();
                     String pass = password.getText().toString();
                     if (email.length()>0&&pass.length()>0){
@@ -49,6 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                     else{
                         Toast.makeText(LoginActivity.this,"OOOps!! Empty credentials..",Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
                     }
                 }
             });
@@ -59,22 +79,29 @@ public class LoginActivity extends AppCompatActivity {
             //            start home page intent
             Toast.makeText(LoginActivity.this,"you are already logged in",Toast.LENGTH_SHORT).show();
             startActivity(new Intent(LoginActivity.this,navigation_activity.class));
+            finish();
+            noInternet();
         }
     }
 
     public void loginUser(String name, String pass){
+        progressDialog.setMessage("Connecting to our database...");
+        progressDialog.show();
         authenticator.signInWithEmailAndPassword(name,pass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
                 Toast.makeText(LoginActivity.this,"Hurrrayy! Login was successful",Toast.LENGTH_SHORT).show();
                 dataSaver(name);
+                progressDialog.dismiss();
                 startActivity(new Intent(LoginActivity.this,navigation_activity.class));
+                finish();
 //                start new intent here
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(LoginActivity.this,"OOOps! Login failed",Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+                Toast.makeText(LoginActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -83,5 +110,14 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = saver.edit();
         editor.putString("emailid",s);
         editor.apply();
+    }
+    public void noInternet(){
+        NetworkInfo nInfo = connectivityManager.getActiveNetworkInfo();
+        boolean connected = nInfo != null && nInfo.isAvailable() && nInfo.isConnected();
+
+        if(! connected){
+
+            startActivity(new Intent(LoginActivity.this,NoInternet.class));
+        }
     }
 }

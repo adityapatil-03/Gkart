@@ -16,6 +16,13 @@
         android:theme="@style/Theme.Gkart"
         tools:targetApi="31">
         <activity
+            android:name=".NoInternet"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".navigation_activity"
             android:exported="false"
             android:label="@string/title_activity_navigation">
