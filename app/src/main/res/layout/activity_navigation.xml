@@ -34,7 +34,7 @@
         android:id="@+id/nav_host_fragment_activity_navigation"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="650dp"
         app:defaultNavHost="true"
         app:layout_constraintBottom_toTopOf="@id/nav_view"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -43,8 +43,5 @@
         app:navGraph="@navigation/mobile_navigation" />
 
 
-
-
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
-<!--    app:fabCardleMargin="10dp"-->
+    <!--    app:fabCardleMargin="10dp"-->
