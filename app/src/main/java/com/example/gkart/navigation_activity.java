@@ -2,6 +2,7 @@ package com.example.gkart;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -49,7 +50,11 @@ public class navigation_activity extends AppCompatActivity {
             }
         });
 
+    }
 
+    public void cardClick(View view) {
+        Log.d("pranav", "cardClick: ");
+        startActivity(new Intent(navigation_activity.this,Product_display.class));
     }
 
 
