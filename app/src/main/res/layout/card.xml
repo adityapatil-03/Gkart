@@ -39,8 +39,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="70dp"
+
                 android:layout_marginLeft="180sp"
-                android:text="Price"
+                android:text="price"
                 android:textSize="18sp"
 
                 android:textStyle="bold" />
