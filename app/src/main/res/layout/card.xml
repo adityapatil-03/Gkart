@@ -2,7 +2,8 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
-            app:cardCornerRadius="15dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardCornerRadius="15dp"
             app:cardElevation="12dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -12,7 +13,7 @@
             android:layout_columnWeight="1"
             android:layout_gravity="fill"
             android:layout_margin="20dp"
-            android:onClick="cardClick">
+            >
 
             <ImageView
                 android:id="@+id/product_image"
@@ -48,6 +49,7 @@
 
     <Button
         android:id="@+id/button2"
+        android:tag=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
@@ -55,7 +57,8 @@
         android:onClick="Cartclick"
         android:layout_marginBottom="10dp"
         android:textSize="10dp"
-        android:text="+ Add to cart" />
+        android:text="+ Add to cart"
+        tools:ignore="UsingOnClickInXml" />
 
 
 </androidx.cardview.widget.CardView>

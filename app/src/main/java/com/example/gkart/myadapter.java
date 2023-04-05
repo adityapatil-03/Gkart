@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -42,6 +43,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.viewholder>{
     public void onBindViewHolder(@NonNull viewholder holder, int position) {
         holder.name.setText( products.get(position).getName());
         holder.price.setText(rupee+products.get(position).getPrice());
+        holder.add_cart.setTag(products.get(position).getName());
         Glide.with(holder.img.getContext()).load(products.get(position).getImage()).into(holder.img);
 //        Log.d("pranav", "getItemCount: "+position);
     }
@@ -54,11 +56,13 @@ public class myadapter extends RecyclerView.Adapter<myadapter.viewholder>{
     public class viewholder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView  img;
         TextView price,name;
+        Button add_cart;
         public viewholder(@NonNull View itemView) {
             super(itemView);
             img = (ImageView) itemView.findViewById(R.id.product_image);
             price = (TextView) itemView.findViewById(R.id.product_price);
             name = (TextView) itemView.findViewById(R.id.product_name);
+            add_cart = (Button) itemView.findViewById(R.id.button2);
             itemView.setOnClickListener(this);
         }
 
