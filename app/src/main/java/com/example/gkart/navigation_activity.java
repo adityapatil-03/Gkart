@@ -1,8 +1,10 @@
 package com.example.gkart;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Printer;
 import android.view.View;
 import android.widget.Button;
 
@@ -20,6 +22,8 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.gkart.databinding.ActivityNavigationBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.security.PrivateKey;
+
 public class navigation_activity extends AppCompatActivity {
 
     private ActivityNavigationBinding binding;
@@ -30,6 +34,7 @@ public class navigation_activity extends AppCompatActivity {
 
         binding = ActivityNavigationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -53,8 +58,12 @@ public class navigation_activity extends AppCompatActivity {
     }
 
     public void cardClick(View view) {
+
         Log.d("pranav", "cardClick: ");
-        startActivity(new Intent(navigation_activity.this,Product_display.class));
+        String childname = view.getTag().toString();
+        Intent intent = new Intent(navigation_activity.this,Product_display.class);
+        intent.putExtra("category",childname);
+        startActivity(intent);
     }
 
 

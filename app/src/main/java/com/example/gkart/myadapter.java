@@ -22,6 +22,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.viewholder>{
 
     Context context;
     ArrayList<model> products;
+    final String rupee = "₹ ";
 
     public myadapter(Context context, ArrayList<model> products) {
         this.context = context;
@@ -40,7 +41,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.viewholder>{
     @Override
     public void onBindViewHolder(@NonNull viewholder holder, int position) {
         holder.name.setText( products.get(position).getName());
-        holder.price.setText(products.get(position).getPrice());
+        holder.price.setText(rupee+products.get(position).getPrice());
         Glide.with(holder.img.getContext()).load(products.get(position).getImage()).into(holder.img);
 //        Log.d("pranav", "getItemCount: "+position);
     }

@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -24,14 +26,20 @@ public class Product_display extends AppCompatActivity {
     myadapter adapter;
     DatabaseReference databaseReference;
     ArrayList<model> products;
+    private ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        progressDialog  = new ProgressDialog(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_display);
         recyclerView = findViewById(R.id.recycleview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         products = new ArrayList<>();
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("products").child("oils");
+        Intent intent = getIntent();
+        progressDialog.setMessage("Connecting to our database...");
+        progressDialog.show();
+
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("products").child(intent.getExtras().getString("category"));
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -46,6 +54,7 @@ public class Product_display extends AppCompatActivity {
                 }
                 Log.d("pranav", "onDataChange: "+products.size());
                 adapter.notifyDataSetChanged();
+                progressDialog.dismiss();
 
             }
 
