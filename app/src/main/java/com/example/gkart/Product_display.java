@@ -1,5 +1,7 @@
 package com.example.gkart;
 
+import static android.widget.Toast.LENGTH_LONG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,10 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -28,8 +32,11 @@ public class Product_display extends AppCompatActivity {
     RecyclerView recyclerView;
     myadapter adapter;
     DatabaseReference databaseReference;
-    ArrayList<model> products;
+    ArrayList<model> products,cart_products;
     private ProgressDialog progressDialog;
+
+    cart_database db;
+
     Button cart;
     Intent intent;
     @Override
@@ -40,9 +47,12 @@ public class Product_display extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycleview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         products = new ArrayList<>();
+        cart_products = new ArrayList<>();
          intent = getIntent();
         progressDialog.setMessage("Connecting to our database...");
         progressDialog.show();
+
+        db = new cart_database(this);
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("products").child(intent.getExtras().getString("category"));
 
@@ -77,7 +87,37 @@ public class Product_display extends AppCompatActivity {
     }
 
     public void Cartclick(View view){
-        Log.d("pranav", "Cartclick:  " + view.getTag().toString() + " " +intent.getExtras().getString("category") );
+       // Log.d("pranav", "Cartclick:  " + view.getTag().toString() + " " +intent.getExtras().getString("category") );
+         String name = view.getTag().toString();
+         boolean cs = db.search_name(name,"0");
+        Log.d("pranav", "Cartclick: " + cs);
+        if(!cs) {
+            databaseReference = FirebaseDatabase.getInstance().getReference().child("products").child(intent.getExtras().getString("category")).child(view.getTag().toString());
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    products.clear();
+                    ArrayList<String> product_data = new ArrayList<>();
+                    for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                        product_data.add(snapshot1.getValue().toString());
+                        Log.d("pranav", "onDataChange: " + snapshot1.getValue().toString());
+                    }
+                    boolean c_product = db.insert(product_data.get(1), product_data.get(0), product_data.get(2), 1);
+                    if (c_product) {
+                        Toast.makeText(Product_display.this, "Product added sucessfully", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
+        else{
+            Toast.makeText(Product_display.this, "Product is already added", Toast.LENGTH_SHORT).show();
+        }
     }
 
 

@@ -3,8 +3,33 @@ package com.example.gkart;
 import java.util.HashMap;
 
 public class model {
-    String name,image;
+    String name,image,c_id;
     String price;
+    int quantity;
+
+    public String getC_id() {
+        return c_id;
+    }
+
+    public void setC_id(String c_id) {
+        this.c_id = c_id;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public model(String id, String name, String image, String price, int quantity) {
+        this.c_id = id;
+        this.name = name;
+        this.image = image;
+        this.price = price;
+        this.quantity = quantity;
+    }
 
     model(){
 
