@@ -72,7 +72,7 @@ public class cart extends AppCompatActivity {
 
         Integer d = db.delete(c_id);
         if(d>0){
-            Toast.makeText(cart.this,"Data deleted sucessfully",LENGTH_LONG).show();
+            Toast.makeText(cart.this,"Data deleted sucessfully",Toast.LENGTH_SHORT).show();
         }
         display();
     }
@@ -94,7 +94,7 @@ public class cart extends AppCompatActivity {
         else{
             Integer d = db.delete(c_id);
             if(d>0){
-                Toast.makeText(cart.this,"Data deleted sucessfully",LENGTH_LONG).show();
+                Toast.makeText(cart.this,"Data deleted sucessfully",Toast.LENGTH_SHORT).show();
             }
         }
         display();

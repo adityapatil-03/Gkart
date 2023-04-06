@@ -104,7 +104,7 @@ public class Product_display extends AppCompatActivity {
                     }
                     boolean c_product = db.insert(product_data.get(1), product_data.get(0), product_data.get(2), 1);
                     if (c_product) {
-                        Toast.makeText(Product_display.this, "Product added sucessfully", LENGTH_LONG).show();
+                        Toast.makeText(Product_display.this, "Product added sucessfully", Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -116,7 +116,7 @@ public class Product_display extends AppCompatActivity {
             });
         }
         else{
-            Toast.makeText(Product_display.this, "Product is already added", LENGTH_LONG).show();
+            Toast.makeText(Product_display.this, "Product is already added", Toast.LENGTH_SHORT).show();
         }
     }
 
