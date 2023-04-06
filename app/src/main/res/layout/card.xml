@@ -29,6 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25sp"
                 android:layout_marginLeft="180sp"
+                android:layout_marginRight="5sp"
                 android:text="Oils"
                 android:textAlignment="center"
                 android:textColor="@color/black"
@@ -39,7 +40,7 @@
                 android:id="@+id/product_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="70dp"
+                android:layout_marginTop="85dp"
 
                 android:layout_marginLeft="180sp"
                 android:text="price"
