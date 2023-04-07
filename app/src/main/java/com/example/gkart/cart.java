@@ -22,18 +22,20 @@ public class cart extends AppCompatActivity {
     private RecyclerView cart_display;
     private cart_adapter c_a;
     private ArrayList<model> cart_products;
-    TextView quantity;
+    TextView total_amount;
+    final String rupee = "₹ ";
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-
         db = new cart_database(this);
         cart_display = findViewById(R.id.cr);
-
+        total_amount = findViewById(R.id.total_amount);
      //   Cursor c = db.getdata();
         cart_products = new ArrayList<>();
+
 //        while (c.moveToNext()){
 //            String s = c.getString(4);
 //            int i=Integer.parseInt(s);
@@ -50,19 +52,38 @@ public class cart extends AppCompatActivity {
 //        cart_display.setAdapter(c_a);
     }
 
+
+    public void calculate_total_amount(){
+        int total = 0;
+        Cursor c = db.getdata();
+        while (c.moveToNext()){
+            String s = c.getString(4);
+            int i=Integer.parseInt(s);
+
+            String price = c.getString(3);
+            int pri = Integer.parseInt(price);
+
+            total += (i*pri);
+
+        }
+
+        total_amount.setText("Total: "+rupee + total);
+
+    }
+
     public void display(){
         Cursor c = db.getdata();
+
         ArrayList<model> products = new ArrayList<>();
         while (c.moveToNext()){
             String s = c.getString(4);
             int i=Integer.parseInt(s);
-            Log.d("pranav", "onCreate: ");
             model d = new model(c.getString(0),c.getString(1),c.getString(2),c.getString(3),i);
             products.add(d);
         }
         cart_products = products;
         cart_display.setLayoutManager(new LinearLayoutManager(this));
-
+        calculate_total_amount();
         c_a = new cart_adapter(cart.this,cart_products);
         cart_display.setAdapter(c_a);
     }
@@ -72,7 +93,7 @@ public class cart extends AppCompatActivity {
 
         Integer d = db.delete(c_id);
         if(d>0){
-            Toast.makeText(cart.this,"Data deleted sucessfully",Toast.LENGTH_SHORT).show();
+            Toast.makeText(cart.this,"Product deleted sucessfully",Toast.LENGTH_SHORT).show();
         }
         display();
     }

@@ -92,6 +92,7 @@ public class Product_display extends AppCompatActivity {
          boolean cs = db.search_name(name,"0");
         Log.d("pranav", "Cartclick: " + cs);
         if(!cs) {
+            String cate = intent.getExtras().getString("category");
             databaseReference = FirebaseDatabase.getInstance().getReference().child("products").child(intent.getExtras().getString("category")).child(view.getTag().toString());
             databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -102,7 +103,7 @@ public class Product_display extends AppCompatActivity {
                         product_data.add(snapshot1.getValue().toString());
                         Log.d("pranav", "onDataChange: " + snapshot1.getValue().toString());
                     }
-                    boolean c_product = db.insert(product_data.get(1), product_data.get(0), product_data.get(2), 1);
+                    boolean c_product = db.insert(product_data.get(1), product_data.get(0), product_data.get(2), 1,cate);
                     if (c_product) {
                         Toast.makeText(Product_display.this, "Product added sucessfully", Toast.LENGTH_SHORT).show();
                     }
