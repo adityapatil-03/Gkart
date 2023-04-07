@@ -17,6 +17,7 @@ public class cart_database extends SQLiteOpenHelper {
     public static final String col_3 = "PRICE";
     public static final String col_4 = "IMAGE";
     public static final String col_5 = "QUANTITY";
+    public static final String col_6 = "CATEGORY";
 
     public cart_database(Context context) {
         super(context, DATABASE_NAME,null,1);
@@ -24,7 +25,7 @@ public class cart_database extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sq) {
-        sq.execSQL("create table " + TABLE_NAME +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,NAME TEXT,PRICE TEXT,IMAGE TEXT,QUANTITY INTEGER)");
+        sq.execSQL("create table " + TABLE_NAME +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,NAME TEXT,PRICE TEXT,IMAGE TEXT,QUANTITY INTEGER,CATEGORY TEXT)");
     }
 
     @Override
@@ -34,14 +35,14 @@ public class cart_database extends SQLiteOpenHelper {
 
     }
 
-    public boolean insert(String name,String price,String image,int quantity){
+    public boolean insert(String name,String price,String image,int quantity,String category){
         SQLiteDatabase sq = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(col_2,name);
         cv.put(col_3,price);
         cv.put(col_4,image);
         cv.put(col_5,quantity);
-
+        cv.put(col_6,category);
         long x = sq.insert(TABLE_NAME,null,cv);
         if(x==-1){
             return false;
