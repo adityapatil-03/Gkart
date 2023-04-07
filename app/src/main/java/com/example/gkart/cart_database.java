@@ -95,4 +95,9 @@ public class cart_database extends SQLiteOpenHelper {
         return true;
     }
 
+    public Integer deleteall(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(TABLE_NAME,null,null);
+    }
+
 }
