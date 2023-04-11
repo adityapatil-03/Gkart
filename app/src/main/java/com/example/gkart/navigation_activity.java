@@ -59,12 +59,19 @@ public class navigation_activity extends AppCompatActivity {
 
     public void cardClick(View view) {
 
-        Log.d("pranav", "cardClick: ");
         String childname = view.getTag().toString();
         Intent intent = new Intent(navigation_activity.this,Product_display.class);
         intent.putExtra("category",childname);
         startActivity(intent);
     }
+
+
+    public void Myorder(View view){
+        Intent intent = new Intent(navigation_activity.this,Myorders.class);
+        startActivity(intent);
+    }
+
+
 
 
 
