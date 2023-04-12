@@ -18,6 +18,7 @@ public class NoInternet extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(NoInternet.this,LoginActivity.class));
+                finish();
             }
         });
     }
