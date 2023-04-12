@@ -37,7 +37,7 @@ public class Product_display extends AppCompatActivity {
 
     cart_database db;
 
-    Button cart;
+
     Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +90,6 @@ public class Product_display extends AppCompatActivity {
        // Log.d("pranav", "Cartclick:  " + view.getTag().toString() + " " +intent.getExtras().getString("category") );
          String name = view.getTag().toString();
          boolean cs = db.search_name(name,"0");
-        Log.d("pranav", "Cartclick: " + cs);
         if(!cs) {
             String cate = intent.getExtras().getString("category");
             databaseReference = FirebaseDatabase.getInstance().getReference().child("products").child(intent.getExtras().getString("category")).child(view.getTag().toString());
