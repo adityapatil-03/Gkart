@@ -22,7 +22,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity {
-    private  Button adminbutton;
     private EditText username;
     private EditText password;
     private Button loginbutton;
@@ -44,21 +43,9 @@ public class LoginActivity extends AppCompatActivity {
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
         loginbutton = findViewById(R.id.loginbutton);
-        adminbutton = findViewById(R.id.adminloginbutton);
         authenticator = FirebaseAuth.getInstance();
         progressDialog  = new ProgressDialog(this);
         connectivityManager = (ConnectivityManager)getApplicationContext().getSystemService(CONNECTIVITY_SERVICE);
-
-
-
-        adminbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(LoginActivity.this, "Redirecting to Admin Page", Toast.LENGTH_SHORT).show();
-                Intent adminIntent =  new Intent(LoginActivity.this,Admin_Login_page.class);
-                startActivity(adminIntent);
-            }
-        });
 
 
     }
