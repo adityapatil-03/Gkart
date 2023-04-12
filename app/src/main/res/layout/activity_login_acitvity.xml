@@ -77,15 +77,6 @@
                 android:text="Login"
                 android:textSize="18sp"
                 app:cornerRadius="30dp" />
-            <Button
-                android:id="@+id/adminloginbutton"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="30dp"
-                android:backgroundTint="@color/orange"
-                android:text="Admin Login"
-                android:textSize="18sp"
-                app:cornerRadius="30dp" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
