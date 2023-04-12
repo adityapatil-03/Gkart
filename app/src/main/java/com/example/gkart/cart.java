@@ -170,6 +170,7 @@ public class cart extends AppCompatActivity {
             model m = new model(c.getString(0),c.getString(1),c.getString(2),c.getString(3),i);
             Log.d("adi", "placeorder: "+date);
             database.child("orders").child(emailid).child(date).child("products").push().setValue(m);
+            database.child("orders").child(emailid).child(date).child("date").setValue(date);
         }
         Integer res = cleardb();
         if(res>0) Toast.makeText(this, "Order sent successfully...", Toast.LENGTH_SHORT).show();

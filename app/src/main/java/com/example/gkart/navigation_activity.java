@@ -1,5 +1,6 @@
 package com.example.gkart;
 
+import android.app.Notification;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.gkart.databinding.ActivityNavigationBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.security.PrivateKey;
 
@@ -28,6 +30,7 @@ public class navigation_activity extends AppCompatActivity {
 
     private ActivityNavigationBinding binding;
     private FloatingActionButton cart_button;
+    private FirebaseAuth firebaseAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +48,8 @@ public class navigation_activity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_navigation);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+        firebaseAuth = FirebaseAuth.getInstance();
 
         cart_button = findViewById(R.id.fab);
 
@@ -71,8 +76,20 @@ public class navigation_activity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void logout(View view) {
+        firebaseAuth.signOut();
+        startActivity(new Intent(navigation_activity.this,LoginActivity.class));
+        finish();
+    }
+
+    public void feedback(View view){
+        startActivity(new Intent(navigation_activity.this,Feedback.class));
 
 
 
+    }
 
+    public void notification(View view){
+        startActivity(new Intent(navigation_activity.this, Notifications.class));
+    }
 }
