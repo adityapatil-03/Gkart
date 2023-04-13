@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/orange_page"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".LoginActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -34,7 +38,7 @@
                 android:text="Update Product"
                 android:textAlignment="center"
                 android:textColor="@color/orange"
-                android:textSize="36sp"
+                android:textSize="25sp"
                 android:textStyle="bold"  />
 
 
@@ -69,7 +73,7 @@
                 android:text="Add Product"
                 android:textAlignment="center"
                 android:textColor="@color/orange"
-                android:textSize="36sp"
+                android:textSize="25sp"
                 android:textStyle="bold"  />
 
 
@@ -101,10 +105,10 @@
                 android:id="@+id/orderhistroy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="History"
+                android:text="Accetpted order"
                 android:textAlignment="center"
                 android:textColor="@color/orange"
-                android:textSize="36sp"
+                android:textSize="25sp"
                 android:textStyle="bold"  />
 
 
@@ -113,9 +117,81 @@
 
 
     </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:background="@drawable/custom_edittext"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="20dp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:padding="24dp">
+
+
+                <TextView
+                    android:id="@+id/adduser"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Add user"
+                    android:textAlignment="center"
+                    android:textColor="@color/orange"
+                    android:textSize="25sp"
+                    android:textStyle="bold"  />
 
 
 
-</LinearLayout>
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:background="@drawable/custom_edittext"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="20dp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:padding="24dp">
+
+
+                <TextView
+                    android:id="@+id/logout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Logout"
+                    android:textAlignment="center"
+                    android:textColor="@color/orange"
+                    android:textSize="25sp"
+                    android:textStyle="bold"  />
+
+
+
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+
+    </LinearLayout>
+
+
+
+</androidx.core.widget.NestedScrollView>
 
 
