@@ -66,6 +66,7 @@ public class cart_adapter extends RecyclerView.Adapter<cart_adapter.Viewholder>{
     public class Viewholder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView img;
         TextView price,name,quantity;
+
         Button delete,minus,plus;
         public Viewholder(@NonNull View itemView) {
             super(itemView);

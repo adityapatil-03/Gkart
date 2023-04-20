@@ -19,6 +19,7 @@
         android:layout_margin="30dp"
         android:background="@drawable/custom_edittext"
         app:cardCornerRadius="30dp"
+        android:onClick="updateproduct"
         app:cardElevation="20dp">
 
 
@@ -52,6 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
+        android:onClick="addproduct"
         android:background="@drawable/custom_edittext"
         app:cardCornerRadius="30dp"
         app:cardElevation="20dp">
@@ -123,6 +125,7 @@
             android:layout_margin="30dp"
             android:background="@drawable/custom_edittext"
             app:cardCornerRadius="30dp"
+            android:onClick="add_user"
             app:cardElevation="20dp">
 
 

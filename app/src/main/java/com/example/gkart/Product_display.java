@@ -78,16 +78,11 @@ public class Product_display extends AppCompatActivity {
 
             }
         });
-//        Log.d("pranav", "onCreate: "+products.size());
         adapter = new myadapter(Product_display.this,products);
         recyclerView.setAdapter(adapter);
-
-
-
     }
 
     public void Cartclick(View view){
-       // Log.d("pranav", "Cartclick:  " + view.getTag().toString() + " " +intent.getExtras().getString("category") );
          String name = view.getTag().toString();
          boolean cs = db.search_name(name,"0");
         if(!cs) {
