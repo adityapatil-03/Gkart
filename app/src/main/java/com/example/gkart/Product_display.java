@@ -130,5 +130,6 @@ public class Product_display extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         databaseReference.removeEventListener(listenr);
+        //abc
     }
 }
