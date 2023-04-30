@@ -44,4 +44,12 @@ public class Notifications extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        SharedPreferences switchState = getSharedPreferences("userdetails",MODE_PRIVATE);
+        String emailid = switchState.getString("emailid","default").split("@",2)[0];
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("notifications").child(emailid);
+        databaseReference.removeValue();
+    }
 }

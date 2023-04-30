@@ -16,6 +16,20 @@
         android:theme="@style/Theme.Gkart"
         tools:targetApi="31">
         <activity
+            android:name=".ProcessOrder"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".OrderReview"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".Admin_Login_page"
             android:exported="false">
             <meta-data
@@ -88,6 +102,13 @@
         </activity>
         <activity
             android:name=".Myorders"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".order_details"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

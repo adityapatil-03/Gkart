@@ -94,6 +94,7 @@
             android:layout_gravity="center_horizontal"
             android:orientation="vertical"
             android:background="@color/white"
+            android:onClick="reviewOrder"
             android:padding="24dp">
 
 
@@ -101,7 +102,7 @@
                 android:id="@+id/orderhistroy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="History"
+                android:text="Orders"
                 android:textAlignment="center"
                 android:textColor="@color/orange"
                 android:textSize="36sp"

@@ -167,10 +167,14 @@ public class cart extends AppCompatActivity {
         while (c.moveToNext()){
             String s = c.getString(4);
             int i=Integer.parseInt(s);
-            model m = new model(c.getString(0),c.getString(1),c.getString(2),c.getString(3),i);
+            Log.d("pranav", "placeorder: "+c.getString(5));
+            model m = new model(c.getString(0),c.getString(1),c.getString(2),c.getString(3),i,c.getString(5));
             Log.d("adi", "placeorder: "+date);
             database.child("orders").child(emailid).child(date).child("products").push().setValue(m);
             database.child("orders").child(emailid).child(date).child("date").setValue(date);
+            database.child("admin").child(date).child("products").push().setValue(m);
+            database.child("admin").child(date).child("date").setValue(date);
+            database.child("admin").child(date).child("username").setValue(emailid);
         }
         Integer res = cleardb();
         if(res>0) Toast.makeText(this, "Order sent successfully...", Toast.LENGTH_SHORT).show();
