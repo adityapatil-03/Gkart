@@ -37,6 +37,7 @@ public class Admin_Login_page extends AppCompatActivity {
 //                    Toast.makeText(Admin_Login_page.this, "Correct Cored", Toast.LENGTH_SHORT).show();
                     Intent adminPanel = new Intent(Admin_Login_page.this,Admin_Page.class);
                     startActivity(adminPanel);
+                    finish();
                 }
                 else {
                     Toast.makeText(Admin_Login_page.this, "Invalid Credentials", Toast.LENGTH_SHORT).show();

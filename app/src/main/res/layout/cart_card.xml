@@ -88,6 +88,7 @@
         android:layout_marginLeft="190sp"
         android:layout_marginBottom="20sp"
         android:text="5"
+        android:textColor="@color/black"
         android:gravity="center"
         android:textSize="15sp"
          />
