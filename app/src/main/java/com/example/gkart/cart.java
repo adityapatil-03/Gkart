@@ -43,7 +43,7 @@ public class cart extends AppCompatActivity {
         db = new cart_database(this);
         cart_display = findViewById(R.id.cr);
         total_amount = findViewById(R.id.total_amount);
-     //   Cursor c = db.getdata();
+        //   Cursor c = db.getdata();
         cart_products = new ArrayList<>();
 
 //        while (c.moveToNext()){
@@ -54,7 +54,7 @@ public class cart extends AppCompatActivity {
 //            cart_products.add(d);
 //        }
 
-         display();
+        display();
 //
 //        cart_display.setLayoutManager(new LinearLayoutManager(this));
 //
@@ -136,10 +136,10 @@ public class cart extends AppCompatActivity {
         String c_id = view.getTag().toString();
 
         Cursor cs = db.search(c_id);
-           int i = 0;
+        int i = 0;
         while (cs.moveToNext()){
             String s = cs.getString(4);
-             i=Integer.parseInt(s);
+            i=Integer.parseInt(s);
             i++;
         }
         boolean dec = db.update(c_id,i);
@@ -148,6 +148,7 @@ public class cart extends AppCompatActivity {
     }
 
     public Integer cleardb(){
+
         return db.deleteall();
     }
 
@@ -161,7 +162,7 @@ public class cart extends AppCompatActivity {
         DateFormat df = new SimpleDateFormat("d MMM yyyy, HH:mm:ss");
         String date = df.format(Calendar.getInstance().getTime());
 //        StringBuilder emailid = email
-        
+
 
 
         while (c.moveToNext()){
@@ -176,6 +177,7 @@ public class cart extends AppCompatActivity {
             database.child("admin").child(date).child("date").setValue(date);
             database.child("admin").child(date).child("username").setValue(emailid);
         }
+
         Integer res = cleardb();
         if(res>0) Toast.makeText(this, "Order sent successfully...", Toast.LENGTH_SHORT).show();
         else Toast.makeText(this, "Empty cart...", Toast.LENGTH_SHORT).show();

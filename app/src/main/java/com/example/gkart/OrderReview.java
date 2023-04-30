@@ -87,5 +87,6 @@ public class OrderReview extends AppCompatActivity {
         Intent intent = new Intent(OrderReview.this,ProcessOrder.class);
         intent.putExtra("o_date",childname);
         startActivity(intent);
+        finish();
     }
 }
