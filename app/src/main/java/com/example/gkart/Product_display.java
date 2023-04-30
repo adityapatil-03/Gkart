@@ -9,9 +9,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -36,6 +38,7 @@ public class Product_display extends AppCompatActivity {
     private ProgressDialog progressDialog;
 
     cart_database db;
+    ValueEventListener listenr;
 
 
     Intent intent;
@@ -45,10 +48,18 @@ public class Product_display extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_display);
         recyclerView = findViewById(R.id.recycleview);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        try {
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        }catch (IndexOutOfBoundsException e){
+            Log.d("pranav", "onCreate: error");
+        }
+
+
         products = new ArrayList<>();
         cart_products = new ArrayList<>();
-         intent = getIntent();
+        intent = getIntent();
         progressDialog.setMessage("Connecting to our database...");
         progressDialog.show();
 
@@ -83,15 +94,14 @@ public class Product_display extends AppCompatActivity {
     }
 
     public void Cartclick(View view){
-         String name = view.getTag().toString();
-         boolean cs = db.search_name(name,"0");
+        String name = view.getTag().toString();
+        boolean cs = db.search_name(name,"0");
         if(!cs) {
             String cate = intent.getExtras().getString("category");
             databaseReference = FirebaseDatabase.getInstance().getReference().child("products").child(intent.getExtras().getString("category")).child(view.getTag().toString());
-            databaseReference.addValueEventListener(new ValueEventListener() {
+            listenr = databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    products.clear();
                     ArrayList<String> product_data = new ArrayList<>();
                     for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                         product_data.add(snapshot1.getValue().toString());
@@ -109,12 +119,16 @@ public class Product_display extends AppCompatActivity {
 
                 }
             });
+
         }
         else{
             Toast.makeText(Product_display.this, "Product is already added", Toast.LENGTH_SHORT).show();
         }
     }
 
-
-
+    @Override
+    protected void onPause() {
+        super.onPause();
+        databaseReference.removeEventListener(listenr);
+    }
 }

@@ -72,4 +72,6 @@ public class myadapter extends RecyclerView.Adapter<myadapter.viewholder>{
         }
 
     }
+
+
 }

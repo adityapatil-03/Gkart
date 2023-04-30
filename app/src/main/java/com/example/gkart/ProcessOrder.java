@@ -10,12 +10,14 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,7 +32,8 @@ public class ProcessOrder extends AppCompatActivity {
     Intent intent;
     DatabaseReference databaseReference;
     DatabaseReference database;
-    ArrayList<model> o_products,unprocssed;
+    ArrayList<model> o_products;
+    ArrayList<String> unprocssed;
     orderd_adapter o_d;
     RecyclerView rv_o;
     ProgressDialog progressDialog;
@@ -82,6 +85,7 @@ public class ProcessOrder extends AppCompatActivity {
         });
 
 
+
         rv_o.setLayoutManager(new LinearLayoutManager(this));
         o_d = new orderd_adapter(this,o_products);
         rv_o.setAdapter(o_d);
@@ -99,12 +103,14 @@ public class ProcessOrder extends AppCompatActivity {
 
                     int st = Integer.parseInt(y) - x.quantity;
                     if(st<0){
-                        unprocssed.add(x);
+                        unprocssed.add(x.getName());
+                        Log.d(TAG, "onDataChange: "+unprocssed.toString());
                     }
                     else {
                         databaseReference.setValue(st);
                     }
                 }
+
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
@@ -113,8 +119,59 @@ public class ProcessOrder extends AppCompatActivity {
             });
 
         }
-        progressDialog.setMessage("Order processed except "+unprocssed.toString());
+
+        Handler handler = new Handler();
+
+        // Create a Runnable that calls the doSomething() method
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                database = FirebaseDatabase.getInstance().getReference().child("admin");
+                intent = getIntent();
+                String date1 = intent.getExtras().getString("o_date");
+
+                DatabaseReference newdb = FirebaseDatabase.getInstance().getReference().child("admin").child(date1).child("username");
+                Log.d(TAG, "processNow: " + newdb);
+                newdb.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Log.d("pranav", "onDataChange:ljgfkhgvb " + unprocssed.toString());
+                        DatabaseReference database1 = FirebaseDatabase.getInstance().getReference().child("notifications").child(snapshot.getValue().toString());
+                        database1.setValue("Your order placed on\n"+date1+"\n"+" is processed except "+unprocssed.toString());
+                        database.child(date1).removeValue();
+                        Toast.makeText(ProcessOrder.this,"Order processed successfully...",Toast.LENGTH_SHORT);
+                        finish();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+                progressDialog.dismiss();
+
+            }
+        };
+
+        // Post the Runnable with a delay
+        handler.postDelayed(runnable, 3000);
+
+
+
+
+
+
+        progressDialog.setMessage("processing please wait");
         progressDialog.show();
+
+
+    }
+
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
         database = FirebaseDatabase.getInstance().getReference().child("admin");
         intent = getIntent();
         String date1 = intent.getExtras().getString("o_date");
