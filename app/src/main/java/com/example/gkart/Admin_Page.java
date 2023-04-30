@@ -27,5 +27,9 @@ public class Admin_Page extends AppCompatActivity {
     public void add_user(View view){
         Intent intent = new Intent(Admin_Page.this,adduser.class);
         startActivity(intent);
+        }
+    public void reviewOrder(View view){
+        startActivity(new Intent(Admin_Page.this,OrderReview.class));
+
     }
 }

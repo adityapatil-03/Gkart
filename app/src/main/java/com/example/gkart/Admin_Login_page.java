@@ -13,8 +13,8 @@ public class Admin_Login_page extends AppCompatActivity {
     private Button adminButton;
     private EditText adminusername;
     private EditText adminpassword;
-    private String username ="admin";
-    private String password = "admin123";
+    private String username ="";
+    private String password = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

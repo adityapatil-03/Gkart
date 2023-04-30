@@ -15,14 +15,39 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Gkart"
         tools:targetApi="31">
+        
+        
+        
         <activity
-            android:name=".adduser"
+            android:name=".ProcessOrder"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
+            android:name=".OrderReview"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+        
+        
+        
+        
+        
+
+            android:name=".adduser"
+
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+
             android:name=".updateproduct"
             android:exported="false">
             <meta-data
@@ -31,6 +56,7 @@
         </activity>
         <activity
             android:name=".add_product"
+
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
