@@ -61,5 +61,15 @@
         android:text="+ Add to cart"
         tools:ignore="UsingOnClickInXml" />
 
+    <TextView
+        android:id="@+id/stock"
+        android:layout_marginLeft="260sp"
+        android:layout_marginTop="90sp"
+        android:textSize="15sp"
+        android:textColor="@color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
 
 </androidx.cardview.widget.CardView>
