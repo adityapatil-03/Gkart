@@ -3,199 +3,179 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
-    tools:context=".LoginActivity">
+    android:background="#FBFDFA"
+    android:layout_height="660sp"
+    tools:context=".ui.home.HomeFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:background="@drawable/custom_edittext"
-        app:cardCornerRadius="30dp"
-        android:onClick="updateproduct"
-        app:cardElevation="20dp">
+        >
 
 
-        <LinearLayout
+        <GridLayout
+            android:id="@+id/gridLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:orientation="vertical"
-            android:background="@color/white"
-            android:padding="24dp">
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:paddingTop="90dp"
+            android:layout_marginTop="30dp"
+            android:columnOrderPreserved="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
 
+            app:layout_constraintTop_toBottomOf="@+id/category_TextView">
 
-            <TextView
-                android:id="@+id/updateproducts"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Update Product"
-                android:textAlignment="center"
-                android:textColor="@color/orange"
-                android:textSize="25sp"
-                android:textStyle="bold"  />
+            <androidx.cardview.widget.CardView
+                android:layout_width="122dp"
+                android:layout_height="120dp"
+                android:layout_row="0"
+                android:layout_rowWeight="1"
+                android:layout_column="0"
+                android:layout_columnWeight="1"
+                android:layout_gravity="fill"
+                android:layout_margin="20dp"
+                android:onClick="updateproduct"
+                android:tag="oils"
+                app:cardBackgroundColor="#FCF1F4C4"
+                app:cardCornerRadius="35dp"
+                app:cardElevation="12dp">
 
-
-
-        </LinearLayout>
-
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:onClick="addproduct"
-        android:background="@drawable/custom_edittext"
-        app:cardCornerRadius="30dp"
-        app:cardElevation="20dp">
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:orientation="vertical"
-            android:background="@color/white"
-            android:padding="24dp">
-
-
-            <TextView
-                android:id="@+id/addproducts"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Add Product"
-                android:textAlignment="center"
-                android:textColor="@color/orange"
-                android:textSize="25sp"
-                android:textStyle="bold"  />
-
-
-
-        </LinearLayout>
-
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:background="@drawable/custom_edittext"
-        app:cardCornerRadius="30dp"
-        app:cardElevation="20dp">
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:orientation="vertical"
-            android:background="@color/white"
-            android:onClick="reviewOrder"
-            android:padding="24dp">
-
-
-            <TextView
-                android:id="@+id/orderhistroy"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Orders"
-                android:textAlignment="center"
-                android:textColor="@color/orange"
-                android:textSize="25sp"
-                android:textStyle="bold"  />
-
-
-
-        </LinearLayout>
-
-
-    </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="30dp"
-            android:background="@drawable/custom_edittext"
-            app:cardCornerRadius="30dp"
-            android:onClick="add_user"
-            app:cardElevation="20dp">
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:orientation="vertical"
-                android:background="@color/white"
-                android:padding="24dp">
-
-
-                <TextView
-                    android:id="@+id/adduser"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Add user"
-                    android:textAlignment="center"
-                    android:textColor="@color/orange"
-                    android:textSize="25sp"
-                    android:textStyle="bold"  />
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Update Product"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
 
 
+                </LinearLayout>
 
-            </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
+            <androidx.cardview.widget.CardView
+                android:layout_width="122dp"
+                android:layout_height="120dp"
+                android:layout_row="0"
+                android:layout_rowWeight="1"
+                android:layout_column="1"
+                android:layout_columnWeight="1"
+                android:layout_gravity="fill"
+                android:layout_margin="20dp"
+                android:onClick="addproduct"
+                android:tag="pulses and grains"
+                app:cardBackgroundColor="#CBF1B6"
+                app:cardCornerRadius="35dp"
+                app:cardElevation="12dp">
 
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="30dp"
-            android:background="@drawable/custom_edittext"
-            app:cardCornerRadius="30dp"
-            app:cardElevation="20dp">
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:orientation="vertical"
-                android:background="@color/white"
-                android:padding="24dp">
-
-
-                <TextView
-                    android:id="@+id/logout"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Logout"
-                    android:textAlignment="center"
-                    android:textColor="@color/orange"
-                    android:textSize="25sp"
-                    android:textStyle="bold"  />
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Add Product"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
 
 
+                </LinearLayout>
 
-            </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="122dp"
+                android:layout_height="120dp"
+                android:layout_row="1"
+                android:layout_rowWeight="1"
+                android:layout_column="1"
+                android:layout_columnWeight="1"
+                android:layout_gravity="fill"
+                android:layout_margin="20dp"
+                android:onClick="add_user"
+                android:tag="bakery"
+                app:cardBackgroundColor="#FAD0C4"
+                app:cardCornerRadius="35dp"
+                app:cardElevation="12dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Add user"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
 
 
-        </androidx.cardview.widget.CardView>
+                </LinearLayout>
 
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="122dp"
+                android:layout_height="120dp"
+                android:layout_row="1"
+                android:layout_rowWeight="1"
+                android:layout_column="0"
+                android:layout_columnWeight="1"
+                android:layout_gravity="fill"
+                android:layout_margin="20dp"
+                android:onClick="reviewOrder"
+                android:tag="personal care"
+                app:cardBackgroundColor="#F1D5F6"
+                app:cardCornerRadius="35dp"
+                app:cardElevation="12dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Orders"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+        </GridLayout>
 
     </LinearLayout>
 
 
 
 </androidx.core.widget.NestedScrollView>
-
-

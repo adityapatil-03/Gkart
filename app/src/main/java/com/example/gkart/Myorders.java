@@ -29,6 +29,8 @@ public class Myorders extends AppCompatActivity {
     RecyclerView rv;
     order_adapter od;
     private ProgressDialog progressDialog;
+    ValueEventListener listenr;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +47,7 @@ public class Myorders extends AppCompatActivity {
         progressDialog.setMessage("Connecting to our database...");
         progressDialog.show();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("orders").child(emailid);
-            databaseReference.addValueEventListener(new ValueEventListener() {
+            listenr=databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     for (DataSnapshot snapshot1 : snapshot.getChildren()) {
@@ -85,5 +87,11 @@ public class Myorders extends AppCompatActivity {
         Intent intent = new Intent(Myorders.this,order_details.class);
         intent.putExtra("o_date",childname);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        databaseReference.removeEventListener(listenr);
     }
 }

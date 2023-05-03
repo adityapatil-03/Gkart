@@ -30,6 +30,8 @@ public class order_details extends AppCompatActivity {
     orderd_adapter o_d;
     RecyclerView rv_o;
     TextView o_t;
+    ValueEventListener listenr;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,8 @@ public class order_details extends AppCompatActivity {
         intent = getIntent();
         o_t = findViewById(R.id.o_total_amount);
         rv_o = findViewById(R.id.orderd);
+        ValueEventListener listenr;
+
 
         SharedPreferences switchState = getSharedPreferences("userdetails",MODE_PRIVATE);
         String emailid = switchState.getString("emailid","default").split("@",2)[0];
@@ -46,7 +50,7 @@ public class order_details extends AppCompatActivity {
         String date1 = intent.getExtras().getString("o_date");
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("orders").child(emailid).child(date1).child("products");
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        listenr=databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 int sum = 0;
@@ -79,5 +83,11 @@ public class order_details extends AppCompatActivity {
         rv_o.setAdapter(o_d);
 
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        databaseReference.removeEventListener(listenr);
     }
 }
