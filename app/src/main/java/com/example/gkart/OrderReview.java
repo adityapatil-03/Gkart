@@ -26,10 +26,11 @@ import java.util.HashMap;
 
 public class OrderReview extends AppCompatActivity {
     DatabaseReference databaseReference;
-    ArrayList<String> dates;
+    ArrayList<String> dates,username,total,mode;
     RecyclerView rv;
     order_adapter od;
     ValueEventListener listenr;
+    admin_order_adapter aod;
 
     private ProgressDialog progressDialog;
     @SuppressLint("MissingInflatedId")
@@ -45,6 +46,9 @@ public class OrderReview extends AppCompatActivity {
 
 
         dates = new ArrayList<>();
+        mode = new ArrayList<>();
+        total = new ArrayList<>();
+        username = new ArrayList<>();
 
         progressDialog.setMessage("Connecting to our database...");
         progressDialog.show();
@@ -58,6 +62,9 @@ public class OrderReview extends AppCompatActivity {
 //                    Log.d("pranav", "onDataChange: " );
                     if(h.get("date")!=null) {
                         dates.add(h.get("date").toString());
+                        username.add(h.get("username").toString());
+                        mode.add(h.get("payment").toString());
+                        total.add(h.get("total").toString());
                     }
 //                    else{
 //                        Toast.makeText(OrderReview.this, "No Data Available", Toast.LENGTH_SHORT).show();
@@ -65,6 +72,7 @@ public class OrderReview extends AppCompatActivity {
                 }
                 progressDialog.dismiss();
                 od.notifyDataSetChanged();
+                aod.notifyDataSetChanged();
 
             }
 
@@ -76,12 +84,9 @@ public class OrderReview extends AppCompatActivity {
         rv = findViewById(R.id.orders);
         rv.setLayoutManager(new LinearLayoutManager(this));
         od = new order_adapter(OrderReview.this,dates);
+        aod = new admin_order_adapter(OrderReview.this,dates,username,mode,total);
 
-        rv.setAdapter(od);
-
-
-
-
+        rv.setAdapter(aod);
     }
 
     public void seedetails(View view){

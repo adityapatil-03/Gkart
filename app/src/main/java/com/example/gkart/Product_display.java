@@ -48,6 +48,8 @@ public class Product_display extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         progressDialog  = new ProgressDialog(this);
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
+
         setContentView(R.layout.activity_product_display);
         recyclerView = findViewById(R.id.recycleview);
 

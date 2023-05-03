@@ -117,7 +117,7 @@ public class cart extends AppCompatActivity implements PaymentResultListener {
         calculate_total_amount();
         c_a = new cart_adapter(cart.this,cart_products);
         cart_display.setAdapter(c_a);
-        //comment
+
     }
 
     public void delete_product(View view){
@@ -237,11 +237,41 @@ public class cart extends AppCompatActivity implements PaymentResultListener {
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     dialog.cancel();
+                                    Checkout checkout = new Checkout();
+                                    checkout.setKeyID("rzp_test_HebLo122wqOlQ6");
 
-                                    //adiya your code goes here
+                                    /**
+                                     * Set your logo here
+                                     */
+                                    checkout.setImage(R.drawable.logo);
 
+                                    /**
+                                     * Reference to current activity
+                                     */
+                                    final DialogInterface.OnClickListener activity = this;
 
+                                    /**
+                                     * Pass your payment options to the Razorpay Checkout as a JSONObject
+                                     */
+                                    try {
+                                        JSONObject options = new JSONObject();
 
+                                        options.put("name", "GKART");
+                                        options.put("description", "Reference No. #123456");
+                                        options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.jpg");
+                                        options.put("theme.color", "#3399cc");
+                                        options.put("currency", "INR");
+                                        options.put("amount", total_a*100);//pass amount in currency subunits
+                                        JSONObject retryObj = new JSONObject();
+                                        retryObj.put("enabled", true);
+                                        retryObj.put("max_count", 4);
+                                        options.put("retry", retryObj);
+
+                                        checkout.open(cart.this, options);
+
+                                    } catch(Exception e) {
+                                        Log.e("pranav", "Error in starting Razorpay Checkout", e);
+                                    }
                                 }
                             });
                     alertDialogBuilder.setNegativeButton("Pay offline",
@@ -280,57 +310,21 @@ public class cart extends AppCompatActivity implements PaymentResultListener {
             Log.d("adi", "placeorder: "+date);
             database.child("orders").child(emailid).child(date).child("products").push().setValue(m);
             database.child("orders").child(emailid).child(date).child("date").setValue(date);
+            database.child("orders").child(emailid).child(date).child("payment").setValue("Offline");
+
             database.child("admin").child(date).child("products").push().setValue(m);
             database.child("admin").child(date).child("date").setValue(date);
             database.child("admin").child(date).child("username").setValue(emailid);
+            database.child("admin").child(date).child("payment").setValue("Unpaid");
+            database.child("admin").child(date).child("total").setValue(total_a);
+
+
         }
 
         Integer res = cleardb();
         if(res>0) Toast.makeText(this, "Order sent successfully...", Toast.LENGTH_SHORT).show();
         else Toast.makeText(this, "Empty cart...", Toast.LENGTH_SHORT).show();
         finish();
-    }
-
-    public void startpayment(View view){
-        /**
-         * Instantiate Checkout
-         */
-        Checkout checkout = new Checkout();
-        checkout.setKeyID("rzp_test_HebLo122wqOlQ6");
-
-        /**
-         * Set your logo here
-         */
-        checkout.setImage(R.drawable.logo);
-
-        /**
-         * Reference to current activity
-         */
-        final Activity activity = this;
-
-        /**
-         * Pass your payment options to the Razorpay Checkout as a JSONObject
-         */
-        try {
-            JSONObject options = new JSONObject();
-
-            options.put("name", "GKART");
-            options.put("description", "Reference No. #123456");
-            options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.jpg");
-            options.put("theme.color", "#3399cc");
-            options.put("currency", "INR");
-            options.put("amount", total_a*100);//pass amount in currency subunits
-            JSONObject retryObj = new JSONObject();
-            retryObj.put("enabled", true);
-            retryObj.put("max_count", 4);
-            options.put("retry", retryObj);
-
-            checkout.open(activity, options);
-
-        } catch(Exception e) {
-            Log.e("pranav", "Error in starting Razorpay Checkout", e);
-        }
-
     }
 
     @Override
@@ -342,7 +336,6 @@ public class cart extends AppCompatActivity implements PaymentResultListener {
         String emailid = switchState.getString("emailid","default").split("@",2)[0];
         DateFormat df = new SimpleDateFormat("d MMM yyyy, HH:mm:ss");
         String date = df.format(Calendar.getInstance().getTime());
-//        StringBuilder emailid = email
 
 
 
@@ -354,9 +347,15 @@ public class cart extends AppCompatActivity implements PaymentResultListener {
             Log.d("adi", "placeorder: "+date);
             database.child("orders").child(emailid).child(date).child("products").push().setValue(m);
             database.child("orders").child(emailid).child(date).child("date").setValue(date);
+            database.child("orders").child(emailid).child(date).child("payment").setValue("Online");
+
             database.child("admin").child(date).child("products").push().setValue(m);
             database.child("admin").child(date).child("date").setValue(date);
             database.child("admin").child(date).child("username").setValue(emailid);
+            database.child("admin").child(date).child("payment").setValue("Paid");
+            database.child("admin").child(date).child("total").setValue(total_a);
+
+
         }
 
         Integer res = cleardb();

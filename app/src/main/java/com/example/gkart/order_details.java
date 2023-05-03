@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -29,7 +30,8 @@ public class order_details extends AppCompatActivity {
     ArrayList<model> o_products;
     orderd_adapter o_d;
     RecyclerView rv_o;
-    TextView o_t;
+
+    TextView o_t,mode;
     ValueEventListener listenr;
 
     @SuppressLint("MissingInflatedId")
@@ -41,6 +43,7 @@ public class order_details extends AppCompatActivity {
         intent = getIntent();
         o_t = findViewById(R.id.o_total_amount);
         rv_o = findViewById(R.id.orderd);
+        mode = findViewById(R.id.mode);
         ValueEventListener listenr;
 
 
@@ -54,6 +57,7 @@ public class order_details extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 int sum = 0;
+                Log.d("pranav", "onDataChange: " + snapshot);
                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                     HashMap h = new HashMap();
                     h = (HashMap)snapshot1.getValue();
@@ -77,6 +81,26 @@ public class order_details extends AppCompatActivity {
             }
         });
 
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("orders").child(emailid).child(date1).child("payment");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                mode.setText("Mode : " + snapshot.getValue().toString());
+                if(snapshot.getValue().toString().equals("Online")){
+                    mode.setTextColor(Color.BLUE);
+                }
+                else {
+                    mode.setTextColor(Color.RED);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
         rv_o.setLayoutManager(new LinearLayoutManager(this));
         o_d = new orderd_adapter(this,o_products);
@@ -88,6 +112,12 @@ public class order_details extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        databaseReference.removeEventListener(listenr);
+        try {
+            databaseReference.removeEventListener(listenr);
+
+        }
+        catch (Exception e){
+             ;
+        }
     }
 }
