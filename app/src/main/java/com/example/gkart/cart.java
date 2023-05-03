@@ -117,6 +117,7 @@ public class cart extends AppCompatActivity implements PaymentResultListener {
         calculate_total_amount();
         c_a = new cart_adapter(cart.this,cart_products);
         cart_display.setAdapter(c_a);
+        //comment
     }
 
     public void delete_product(View view){
