@@ -15,12 +15,22 @@
         android:id="@+id/process_order_now"
         android:layout_width="wrap_content"
         android:layout_height="55sp"
-        android:layout_marginLeft="120sp"
+        android:layout_marginLeft="10sp"
         android:layout_marginTop="650sp"
         android:textSize="15sp"
         android:onClick="processNow"
         android:textColor="@color/black"
         android:text="Process order" />
+
+    <Button
+        android:id="@+id/button6"
+        android:onClick="delete_order"
+        android:layout_width="50dp"
+        android:layout_height="55dp"
+        android:layout_marginLeft="300sp"
+        android:layout_marginTop="650sp"
+        android:height="55sp"
+        android:background="@drawable/delete" />
 
 
 </RelativeLayout>
