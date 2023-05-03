@@ -47,6 +47,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.viewholder>{
         if(products.get(position).quantity>0){
             holder.stock.setText("In stock");
             holder.stock.setTextColor(Color.GREEN);
+            holder.add_cart.setEnabled(true);
         }
         else{
             holder.stock.setText("Out of stock");
