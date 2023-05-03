@@ -186,9 +186,6 @@ public class cart extends AppCompatActivity {
                     if(st<0){
                         unprocssed.add(x.getName());
                     }
-                    else {
-
-                    }
                 }
 
 
@@ -233,6 +230,11 @@ public class cart extends AppCompatActivity {
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     dialog.cancel();
+
+                                    //adiya your code goes here
+
+
+
                                 }
                             });
                     alertDialogBuilder.setNegativeButton("Pay offline",
