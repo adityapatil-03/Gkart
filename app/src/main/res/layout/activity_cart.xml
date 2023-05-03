@@ -4,22 +4,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="#D6EAF8"
     android:layout_height="match_parent"
     tools:context=".cart">
 
    <androidx.recyclerview.widget.RecyclerView
        android:id="@+id/cr"
        android:layout_width="match_parent"
-       android:layout_height="600sp"
-/>
+       android:layout_height="650sp"
+       />
 
    <Button
        android:id="@+id/place_order"
-       android:onClick="checker"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
+       android:layout_width="150dp"
+       android:layout_height="50dp"
        android:layout_marginLeft="170sp"
        android:layout_marginTop="650sp"
+       android:background="#AED6F1"
+       android:onClick="checker"
        android:text="Place order" />
 
    <TextView
@@ -31,5 +33,4 @@
        android:textSize="25sp"
        android:textColor="@color/black"
        android:text="TextView" />
-
 </RelativeLayout>
