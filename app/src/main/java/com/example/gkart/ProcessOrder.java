@@ -37,6 +37,8 @@ public class ProcessOrder extends AppCompatActivity {
     orderd_adapter o_d;
     RecyclerView rv_o;
     ProgressDialog progressDialog;
+    ValueEventListener listenr,listenr1;
+
 
 
     Button process_it;
@@ -59,7 +61,7 @@ public class ProcessOrder extends AppCompatActivity {
         String date1 = intent.getExtras().getString("o_date");
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("admin").child(date1).child("products");
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        listenr=databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 int sum = 0;
@@ -169,16 +171,10 @@ public class ProcessOrder extends AppCompatActivity {
 
 
 
+
     @Override
     protected void onPause() {
         super.onPause();
-        database = FirebaseDatabase.getInstance().getReference().child("admin");
-        intent = getIntent();
-        String date1 = intent.getExtras().getString("o_date");
-        database.child(date1).removeValue();
-        SharedPreferences switchState = getSharedPreferences("userdetails",MODE_PRIVATE);
-        String emailid = switchState.getString("emailid","default").split("@",2)[0];
-        database = FirebaseDatabase.getInstance().getReference().child("notifications").child(emailid);
-        database.setValue("Your order placed on\n"+date1+"\n"+" is processed except "+unprocssed.toString());
+        databaseReference.removeEventListener(listenr);
     }
 }

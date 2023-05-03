@@ -3,21 +3,29 @@ package com.example.gkart;
 import static android.widget.Toast.LENGTH_LONG;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -33,7 +41,12 @@ public class cart extends AppCompatActivity {
     private ArrayList<model> cart_products;
     TextView total_amount;
     final String rupee = "₹ ";
-    DatabaseReference database;
+    DatabaseReference database,databaseReference;
+    final String TAG="Pranav";
+    ArrayList<model> o_products;
+    ArrayList<String> unprocssed;
+    ProgressDialog progressDialog;
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -45,6 +58,8 @@ public class cart extends AppCompatActivity {
         total_amount = findViewById(R.id.total_amount);
         //   Cursor c = db.getdata();
         cart_products = new ArrayList<>();
+        progressDialog = new ProgressDialog(this);
+
 
 //        while (c.moveToNext()){
 //            String s = c.getString(4);
@@ -88,7 +103,7 @@ public class cart extends AppCompatActivity {
         while (c.moveToNext()){
             String s = c.getString(4);
             int i=Integer.parseInt(s);
-            model d = new model(c.getString(0),c.getString(1),c.getString(2),c.getString(3),i);
+            model d = new model(c.getString(0),c.getString(1),c.getString(2),c.getString(3),i,c.getString(5));
             products.add(d);
         }
         cart_products = products;
@@ -152,8 +167,65 @@ public class cart extends AppCompatActivity {
         return db.deleteall();
     }
 
+    public void checker(View view){
+//        ArrayList<Integer> q = new ArrayList<>();
+        progressDialog.setMessage("please wait we are reviewing your order...");
+        progressDialog.show();
+        unprocssed = new ArrayList<String>();
+        for (model x:cart_products) {
+            Log.d(TAG, "checker: ");
+//            progressDialog.show();
+            databaseReference = FirebaseDatabase.getInstance().getReference().child("products").child(x.category).child(x.name).child("stock");
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    String y = snapshot.getValue().toString();
 
-    public void placeorder(View view) {
+                    int st = Integer.parseInt(y) - x.quantity;
+                    Log.d(TAG, "onDataChange:pppp"+st);
+                    if(st<0){
+                        unprocssed.add(x.getName());
+                    }
+                    else {
+                        databaseReference.setValue(st);
+                    }
+                }
+
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        }
+        Handler handler = new Handler();
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                progressDialog.dismiss();
+                if(unprocssed!=null){
+                    String dis = "Oops.. it looks like we don't have "+unprocssed.toString()+" these products in our store please remove those and try again.";
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(cart.this);
+                    alertDialogBuilder.setTitle("Can't process order");
+                    alertDialogBuilder.setMessage(dis);
+                    alertDialogBuilder.setPositiveButton("OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+                }
+                else placeorder();
+            }
+        };
+        handler.postDelayed(runnable,3000);
+    }
+
+
+    public void placeorder() {
         database = FirebaseDatabase.getInstance().getReference();
 //        database.push().setValue(1);
         Cursor c = db.getdata();

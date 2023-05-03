@@ -29,6 +29,8 @@ public class OrderReview extends AppCompatActivity {
     ArrayList<String> dates;
     RecyclerView rv;
     order_adapter od;
+    ValueEventListener listenr;
+
     private ProgressDialog progressDialog;
     @SuppressLint("MissingInflatedId")
     @Override
@@ -47,7 +49,7 @@ public class OrderReview extends AppCompatActivity {
         progressDialog.setMessage("Connecting to our database...");
         progressDialog.show();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("admin");
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        listenr=databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
@@ -88,5 +90,11 @@ public class OrderReview extends AppCompatActivity {
         intent.putExtra("o_date",childname);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        databaseReference.removeEventListener(listenr);
     }
 }

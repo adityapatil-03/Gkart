@@ -15,7 +15,7 @@
 
    <Button
        android:id="@+id/place_order"
-       android:onClick="placeorder"
+       android:onClick="checker"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:layout_marginLeft="170sp"
