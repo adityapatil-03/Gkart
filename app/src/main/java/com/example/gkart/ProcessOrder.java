@@ -38,6 +38,7 @@ public class ProcessOrder extends AppCompatActivity {
     RecyclerView rv_o;
     ProgressDialog progressDialog;
     ValueEventListener listenr,listenr1;
+    Button process_now;
 
 
 
@@ -49,6 +50,8 @@ public class ProcessOrder extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_process_order);
+        process_now = findViewById(R.id.process_order_now);
+
         o_products = new ArrayList<>();
         intent = getIntent();
         rv_o = findViewById(R.id.products);
@@ -128,28 +131,8 @@ public class ProcessOrder extends AppCompatActivity {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                database = FirebaseDatabase.getInstance().getReference().child("admin");
-                intent = getIntent();
-                String date1 = intent.getExtras().getString("o_date");
+                process_now.setEnabled(false);
 
-                DatabaseReference newdb = FirebaseDatabase.getInstance().getReference().child("admin").child(date1).child("username");
-                Log.d(TAG, "processNow: " + newdb);
-                newdb.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        Log.d("pranav", "onDataChange:ljgfkhgvb " + unprocssed.toString());
-                        DatabaseReference database1 = FirebaseDatabase.getInstance().getReference().child("notifications").child(snapshot.getValue().toString());
-                        database1.setValue("Your order placed on\n"+date1+"\n"+" is processed except "+unprocssed.toString());
-                        database.child(date1).removeValue();
-                        Toast.makeText(ProcessOrder.this,"Order processed successfully...",Toast.LENGTH_SHORT);
-                        finish();
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
                 progressDialog.dismiss();
 
             }
@@ -176,5 +159,29 @@ public class ProcessOrder extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         databaseReference.removeEventListener(listenr);
+    }
+
+    public void delete_order(View view) {
+        database = FirebaseDatabase.getInstance().getReference().child("admin");
+        intent = getIntent();
+        String date1 = intent.getExtras().getString("o_date");
+
+        DatabaseReference newdb = FirebaseDatabase.getInstance().getReference().child("admin").child(date1).child("username");
+        newdb.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d("pranav", "onDataChange:ljgfkhgvb " + unprocssed.toString());
+                DatabaseReference database1 = FirebaseDatabase.getInstance().getReference().child("notifications").child(snapshot.getValue().toString());
+                database1.setValue("Your order placed on\n"+date1+"\n"+" is processed except "+unprocssed.toString());
+                        database.child(date1).removeValue();
+                Toast.makeText(ProcessOrder.this,"Order processed successfully...",Toast.LENGTH_SHORT);
+                finish();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }
