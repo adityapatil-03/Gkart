@@ -17,6 +17,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -36,6 +37,7 @@ public class Product_display extends AppCompatActivity {
     DatabaseReference databaseReference;
     ArrayList<model> products,cart_products;
     private ProgressDialog progressDialog;
+    TextView stk;
 
     cart_database db;
     ValueEventListener listenr;
@@ -74,7 +76,7 @@ public class Product_display extends AppCompatActivity {
                 for (DataSnapshot snapshot1:snapshot.getChildren()) {
                     HashMap h = new HashMap();
                     h = (HashMap)snapshot1.getValue();
-                    model x = new model(h);
+                    model x = new model(h,1);
                     products.add(x);
                     Log.d("pranav", "onDataChange: " +x.getName());
                 }
@@ -129,7 +131,12 @@ public class Product_display extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        databaseReference.removeEventListener(listenr);
+        try {
+            databaseReference.removeEventListener(listenr);
+        }
+        catch (Exception e){
+            ;
+        }
         //abc
     }
 }

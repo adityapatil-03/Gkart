@@ -58,6 +58,13 @@ public class model {
         this.price = hashMap.get("price").toString();
     }
 
+    public model(HashMap hashMap,int a){
+        this.name = hashMap.get("name").toString();
+        this.image = hashMap.get("image").toString();
+        this.price = hashMap.get("price").toString();
+        this.quantity = Integer.parseInt(hashMap.get("stock").toString());
+    }
+
     public model(HashMap hashMap,String c)
         {
             this.name = hashMap.get("name").toString();

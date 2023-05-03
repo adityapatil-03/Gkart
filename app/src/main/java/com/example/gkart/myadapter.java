@@ -44,6 +44,16 @@ public class myadapter extends RecyclerView.Adapter<myadapter.viewholder>{
         holder.name.setText( products.get(position).getName());
         holder.price.setText(rupee+products.get(position).getPrice());
         holder.add_cart.setTag(products.get(position).getName());
+        if(products.get(position).quantity>0){
+            holder.stock.setText("In stock");
+            holder.stock.setTextColor(Color.GREEN);
+            holder.add_cart.setEnabled(true);
+        }
+        else{
+            holder.stock.setText("Out of stock");
+            holder.stock.setTextColor(Color.RED);
+            holder.add_cart.setEnabled(false);
+        }
         Glide.with(holder.img.getContext()).load(products.get(position).getImage()).into(holder.img);
 //        Log.d("pranav", "getItemCount: "+position);
     }
@@ -55,7 +65,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.viewholder>{
 
     public class viewholder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView  img;
-        TextView price,name;
+        TextView price,name,stock;
         Button add_cart;
         public viewholder(@NonNull View itemView) {
             super(itemView);
@@ -63,6 +73,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.viewholder>{
             price = (TextView) itemView.findViewById(R.id.product_price);
             name = (TextView) itemView.findViewById(R.id.product_name);
             add_cart = (Button) itemView.findViewById(R.id.button2);
+            stock = (TextView) itemView.findViewById(R.id.stock);
             itemView.setOnClickListener(this);
         }
 

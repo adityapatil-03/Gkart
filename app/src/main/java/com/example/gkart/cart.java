@@ -192,9 +192,6 @@ public class cart extends AppCompatActivity implements PaymentResultListener {
                     if(st<0){
                         unprocssed.add(x.getName());
                     }
-                    else {
-                        databaseReference.setValue(st);
-                    }
                 }
 
 
@@ -210,7 +207,7 @@ public class cart extends AppCompatActivity implements PaymentResultListener {
             @Override
             public void run() {
                 progressDialog.dismiss();
-                if(unprocssed!=null){
+                if(unprocssed.size()!=0){
                     String dis = "Oops.. it looks like we don't have "+unprocssed.toString()+" these products in our store please remove those and try again.";
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(cart.this);
                     alertDialogBuilder.setTitle("Can't process order");
@@ -224,7 +221,38 @@ public class cart extends AppCompatActivity implements PaymentResultListener {
                     AlertDialog alertDialog = alertDialogBuilder.create();
                     alertDialog.show();
                 }
-                else placeorder();
+                else {
+                    String dis = "Your order is ready to process please select payment option...";
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(cart.this);
+                    alertDialogBuilder.setTitle("Order ready to process...");
+                    alertDialogBuilder.setMessage(dis);
+                    alertDialogBuilder.setNeutralButton("OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+                    alertDialogBuilder.setPositiveButton("Pay online",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+
+                                    //adiya your code goes here
+
+
+
+                                }
+                            });
+                    alertDialogBuilder.setNegativeButton("Pay offline",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                    placeorder();
+                                }
+                            });
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+                }
             }
         };
         handler.postDelayed(runnable,3000);
